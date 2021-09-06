@@ -1,37 +1,45 @@
 import axios from 'axios';
 import { GetTokenErrorHandler, GetUserErrorHandler, RefreshTokenErrorHandler } from './error';
+import { EndPoints } from './enum/EndPoints';
 
-export async function getToken(code: string, clientId: string, clientSecret: string) {
+export const getToken = async (code: string, clientId: string, clientSecret: string) => {
 	try {
-		return (await axios.post('http://dauth.b1nd.com/api/token', {
+		return (await axios.post(`${EndPoints.DAUTH}`, {
 			code,
 			clientId,
 			clientSecret
 		})).data.data;
-	} catch (err: any) {
-		GetTokenErrorHandler(err.response.data.status);
+	} catch (err) {
+		if (axios.isAxiosError(err)) {
+			GetTokenErrorHandler(err);
+		}
 	}
 }
 
-export async function refreshToken(refreshToken: string, clientId: string) {
+export const refreshToken = async (refreshToken: string, clientId: string) => {
 	try {
-		return (await axios.post("http://dauth.b1nd.com/api/token/refresh", {
+		return (await axios.post(`${EndPoints.DAUTH}/refresh`, {
 			refreshToken,
 			clientId
 		})).data.data;
-	} catch (err: any) {
-		RefreshTokenErrorHandler(err.response.data.status);
+	} catch (err) {
+		if (axios.isAxiosError(err)) {
+			RefreshTokenErrorHandler(err);
+		}
 	}
 }
 
-export async function getUser(accessToken: string) {
+export const getUser = async (accessToken: string) => {
 	try {
-		return (await axios.get("http://open.dodam.b1nd.com/api/user", {
+		return (await axios.get(`${EndPoints.OPENAPI}`, {
 			headers: {
 				'access-token': accessToken
 			}
-		})).data;
-	} catch (err: any) {
-		GetUserErrorHandler(err.response.data.status);
+		})).data.data;
+	} catch (err) {
+		if (axios.isAxiosError(err)) {
+			GetUserErrorHandler(err)
+		}
+
 	}
 }
