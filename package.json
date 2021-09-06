@@ -11,21 +11,10 @@
     "type": "git",
     "url": "git+https://github.com/MDEV-DGSW/Dodam-OpenAPI.git"
   },
-  "author": "",
+  "author": "B1ND",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MDEV-DGSW/Dodam-OpenAPI/issues"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    },
-    "globals": {
-      "ts-jest": {
-        "tsConfig": "tsconfig.json"
-      }
-    },
-    "testRegex": "\\.(test|spec)\\.(js|ts)$"
   },
   "homepage": "https://github.com/MDEV-DGSW/Dodam-OpenAPI#readme",
   "dependencies": {
