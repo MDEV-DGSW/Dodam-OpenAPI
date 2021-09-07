@@ -1,6 +1,8 @@
 import { ClientConfig } from './types';
 import * as api from './api'
 
+export * from './api';
+
 export class AuthClient {
   constructor(
     private config: ClientConfig
