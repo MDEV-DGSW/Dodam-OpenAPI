@@ -1,45 +1,26 @@
-import axios from 'axios';
-import { GetTokenErrorHandler, GetUserErrorHandler, RefreshTokenErrorHandler } from './error';
-import { EndPoints } from './enum/EndPoints';
+import { ClientConfig } from './types';
+import * as api from './api'
 
-export const getToken = async (code: string, clientId: string, clientSecret: string) => {
-	try {
-		return (await axios.post(`${EndPoints.DAUTH}`, {
-			code,
-			clientId,
-			clientSecret
-		})).data.data;
-	} catch (err) {
-		if (axios.isAxiosError(err)) {
-			GetTokenErrorHandler(err);
-		}
-	}
+export class AuthClient {
+  constructor(
+    private config: ClientConfig
+  ) {}
+
+  async login(code: string) {
+    return await api.getToken(code, this.config.clientId, this.config.clientSecret);
+  }
+
+  async getToken(code: string) {
+    return await api.getToken(code, this.config.clientId, this.config.clientSecret);
+  }
+
+  async refreshToken(refreshToken: string) {
+    return await api.refreshToken(refreshToken, this.config.clientId);
+  }
+
+  async getUser(token: string) {
+    return await api.getUser(token);
+  }
 }
 
-export const refreshToken = async (refreshToken: string, clientId: string) => {
-	try {
-		return (await axios.post(`${EndPoints.DAUTH}/refresh`, {
-			refreshToken,
-			clientId
-		})).data.data;
-	} catch (err) {
-		if (axios.isAxiosError(err)) {
-			RefreshTokenErrorHandler(err);
-		}
-	}
-}
-
-export const getUser = async (accessToken: string) => {
-	try {
-		return (await axios.get(`${EndPoints.OPENAPI}`, {
-			headers: {
-				'access-token': accessToken
-			}
-		})).data.data;
-	} catch (err) {
-		if (axios.isAxiosError(err)) {
-			GetUserErrorHandler(err)
-		}
-
-	}
-}
+export default AuthClient;
