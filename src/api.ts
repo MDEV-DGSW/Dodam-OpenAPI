@@ -10,12 +10,12 @@ export class DodamAPI {
 				code,
 				client_id,
 				client_secret
-			})).data.data;
+			})).data;
 		} catch (err) {
 			if (axios.isAxiosError(err)) {
 				GetTokenErrorHandler(err);
 			}
-	
+
 			throw err;
 		}
 	}
@@ -25,12 +25,12 @@ export class DodamAPI {
 			return (await axios.post(`${EndPoints.DAUTH}/refresh`, {
 				refresh_token,
 				client_id
-			})).data.data;
+			})).data;
 		} catch (err) {
 			if (axios.isAxiosError(err)) {
 				RefreshTokenErrorHandler(err);
 			}
-	
+
 			throw err;
 		}
 	}
@@ -41,12 +41,12 @@ export class DodamAPI {
 				headers: {
 					'Authorization': `Bearer ${access_token}`
 				}
-			})).data.data;
+			})).data;
 		} catch (err) {
 			if (axios.isAxiosError(err)) {
 				GetUserErrorHandler(err)
 			}
-	
+
 			throw err;
 		}
 	}
