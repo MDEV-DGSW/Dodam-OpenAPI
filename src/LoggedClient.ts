@@ -1,4 +1,4 @@
-import * as api from './api';
+import { DodamAPI } from './api';
 
 export class LoggedClient {
   constructor(
@@ -6,6 +6,6 @@ export class LoggedClient {
   ) { }
 
   getUser() {
-    return api.getUser(this.token);
+    return DodamAPI.getUser(this.token);
   }
 }
