@@ -5,11 +5,11 @@ import { DodamAPI } from './api';
 export class AuthClient {
   constructor(
     private config: ClientConfig
-  ) {}
+  ) { }
 
   async login(code: string) {
     const result = await DodamAPI.getToken(code, this.config.clientId, this.config.clientSecret);
-    return new LoggedClient(result.token);
+    return new LoggedClient(result.access_token);
   }
 
   getToken(code: string) {

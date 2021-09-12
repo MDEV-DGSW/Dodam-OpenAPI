@@ -1,10 +1,10 @@
 export interface GetTokenResponse {
-  token: string;
+  access_token: string;
   refresh_token: string;
 }
 
 export interface RefreshTokenResponse {
-  token: string;
+  access_token: string;
 }
 
 export interface GetUserResponse {
