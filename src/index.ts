@@ -1,5 +1,6 @@
 import { ClientConfig } from './types';
 import * as api from './api'
+import { LoggedClient } from './LoggedClient';
 
 export * from './api';
 
@@ -9,19 +10,20 @@ export class AuthClient {
   ) {}
 
   async login(code: string) {
-    return await api.getToken(code, this.config.clientId, this.config.clientSecret);
+    const result =  await api.getToken(code, this.config.clientId, this.config.clientSecret);
+    return new LoggedClient(result.token);
   }
 
-  async getToken(code: string) {
-    return await api.getToken(code, this.config.clientId, this.config.clientSecret);
+  getToken(code: string) {
+    return api.getToken(code, this.config.clientId, this.config.clientSecret);
   }
 
-  async refreshToken(refreshToken: string) {
-    return await api.refreshToken(refreshToken, this.config.clientId);
+  refreshToken(refreshToken: string) {
+    return api.refreshToken(refreshToken, this.config.clientId);
   }
 
-  async getUser(token: string) {
-    return await api.getUser(token);
+  getUser(token: string) {
+    return api.getUser(token);
   }
 }
 
