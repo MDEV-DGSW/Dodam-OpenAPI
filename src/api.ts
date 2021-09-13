@@ -41,7 +41,7 @@ export class DodamAPI {
 				headers: {
 					'Authorization': `Bearer ${access_token}`
 				}
-			})).data;
+			})).data.data;
 		} catch (err) {
 			if (axios.isAxiosError(err)) {
 				GetUserErrorHandler(err)
