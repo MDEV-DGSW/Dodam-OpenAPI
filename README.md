@@ -4,31 +4,46 @@ A npm package for easy use of DodamDodam OAuth
 
 # Installing
 Use npm<br/>
-`$ npm install dodam-openapi`<br/>
+`$ npm install @b1nd/openapi`<br/>
 <br/>
 Use yarn<br/>
-`$ yarn add dodam-openapi`
+`$ yarn add @b1nd/openapi`
 
-# Example
-ES5
+# How to use
+
+create module
 ``` javascript
-const { getToken, refreshToken, getUser } = require('dodam-openapi');
+const clientId: string = "clientId";
+const clientSecret: string = "clientSecret";
 
-const example = async () => {
-	const res = await getToken(code, clientId, clientSecret)
-	const res1 = await refreshToken(refreshToken, clientId);
-	const res2 = await getUser(token)
-}
+const authClient = new AuthClient(clientId, clientSecret);
 ```
-ES6
-``` javascript
-import { getToken, getUser, refreshToken } from 'dodam-openapi';
 
-const example = async () => {
-	const res = await getToken(code, clientId, clientSecret)
-	const res1 = await refreshToken(refreshToken, clientId);
-	const res2 = await getUser(token)
-}
+### Login
+```javascript
+const code: string = "code";
+
+const token = await AuthClient.login(code);
+```
+
+### Get token
+```javascript
+const code: string = "code";
+
+const token = await AuthClient.getToken(code);
+```
+### Refresh token
+```javascript
+const refreshToken: string = "refresh_token";
+
+const token = await AuthClient.refreshToken(refreshToken);
+```
+
+### Get user
+```javascript
+const token: string = "access_token";
+
+const user = await AuthClient.getUser(token);
 ```
 ## Read More
 [DAuth](http://dauth.b1nd.com) | [DAuth-Docs](http://docs.dauth.b1nd.com/)
